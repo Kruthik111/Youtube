@@ -1,14 +1,17 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
 
-const NavItems = () => {
+const NavItems = (props) => {
+
   return (
-    <Link to="/">
-    <div className="rounded-full w-16 h-16  flex justify-center items-center shadow-xl shadow-red-700  ">
-      <MdHomeFilled size={26} color="red" />
-      {/* <h1>Home</h1> */}
+   <Link to={props.to}>
+    <div
+      className={`rounded-full w-14 h-14 lg:w-16 lg:h-16  flex justify-center items-center  shadow-lg shadow-${props.color}-400 bg-white`}
+    >
+      {props.comp}
     </div>
-  </Link>
-  )
-}
+   </Link>
+  );
+};
 
 export default NavItems;
