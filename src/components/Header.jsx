@@ -49,7 +49,7 @@ const Header = () => {
   }
   return (
     <div
-      className={` font-display w-full shadow-sm shadow-slate-600 h-14 bg-white dark:bg-gray-800 fixed z-10  top-0 flex justify-center items-center px-5 opacity-95   ${
+      className={` font-display w-full shadow-sm shadow-slate-600 h-14 bg-white dark:bg-gray-800 fixed z-10  top-0 flex justify-center items-center px-5 opacity-95    ${
         focused ? "justify-center sm:justify-between" : "justify-between"
       }`}
     >

@@ -8,7 +8,7 @@ const ChannelCard = ({ channelDetails }) => {
     >
       <div className="flex md:w-[75vw] h-44">
         <div className="flex justify-center items-center sm:w-1/3 max-w-[40%] flex-grow   ">
-          <div className="  rounded-full overflow-hidden   max-w-[30%]">
+          <div className="  rounded-full overflow-hidden  max-w-[50%] sm:max-w-[30%]">
             <img
               // src="https://yt3.ggpht.com/fxGKYucJAVme-Yz4fsdCroCFCrANWqw0ql4GYuvx8Uq4l_euNJHgE-w9MTkLQA805vWCi-kE0g=s176-c-k-c0x00ffffff-no-rj-mo"
               src={channelDetails.snippet.thumbnails.high.url}

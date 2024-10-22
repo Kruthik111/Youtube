@@ -30,7 +30,7 @@ const App = () => {
       <SearchContext.Provider value={{ searchRef, setFocused, focused }}>
         <div
           ref={themeRef}
-          className={`w-screen font-[Arial] overflow-x-hidden relative transform-none max-w-full bg-gray-900 scroll-smooth transition-colors duration-[500ms] ease-in-out ${theme}`}
+          className={`w-screen font-[Arial] overflow-x-hidden relative transform-none max-w-full dark:bg-gray-900 scroll-smooth transition-colors duration-[500ms] ease-in-out  ${theme}`}
           // style={{ filter: `brightness(${brightness}%)` }}
         >
           <BrowserRouter>
@@ -49,8 +49,8 @@ const App = () => {
             {/* <Header /> */}
             <Navbar />
             <Routes>
-              <Route path="/" element={<Home />} />
-              {/* <Route path="/" element={<ChannelCard />} /> */}
+              {/* <Route path="/" element={<Home />} /> */}
+              <Route path="/" element={<ChannelDetail />} />
               {/* <Route path="/" element={<ErrorPage />} /> */}
               <Route path="/Shorts" element={<Shorts />} />
               {/* <Route path="/Home" element={<Home />} /> */}
