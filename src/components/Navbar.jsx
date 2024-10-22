@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { MdHomeFilled } from "react-icons/md";
 import { SiShortcut } from "react-icons/si";
@@ -7,13 +7,15 @@ import { FaSearch } from "react-icons/fa";
 import { IoMdClose } from "react-icons/io";
 import { TbSquareRoundedLetterY } from "react-icons/tb";
 import NavItems from "./NavItems";
+import { SearchContext } from "../App";
 
-export default function Navbar(props) {
+export default function Navbar() {
   const [expand, setExpand] = useState(true);
   const [componentSize, setComponentSize] = useState(24);
+  const { searchRef, setFocused } = useContext(SearchContext);
 
   return (
-    <nav className="fixed right-7 bottom-14 ">
+    <nav className="fixed right-3 sm:right-7 bottom-14 z-30 ">
       <ul className="">
         <div
           className={`${
@@ -41,9 +43,9 @@ export default function Navbar(props) {
 
           <div
             onClick={() => {
-              props.setFocused(true);
+              setFocused(true);
               setTimeout(() => {
-                props.searchRef.current.focus();
+                searchRef.current.focus();
               }, 500);
             }}
             className="rounded-full w-14 h-14  lg:w-16 lg:h-16  flex justify-center items-center shadow-lg shadow-slate-800 lg:hidden bg-white duration-300 ease-in-out border-solid  border-black border-[1px] dark:border-none"

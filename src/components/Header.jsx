@@ -1,12 +1,16 @@
-import { React, useState } from "react";
+import { React, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { IoNotificationsCircleSharp } from "react-icons/io5";
+import { IoNotificationsCircleSharp, IoSunnySharp } from "react-icons/io5";
 import { FaUserPlus } from "react-icons/fa";
 import { ImVideoCamera } from "react-icons/im";
-import { MdOutlineWbSunny } from "react-icons/md";
 import { BsMoonStarsFill } from "react-icons/bs";
+import logo from "../assets/youtube-icon.ico";
+// import { ThemeContext } from "../App";
+import { SearchContext, ThemeContext } from "../App";
 
-const Header = (props) => {
+const Header = () => {
+  const { handleToggleTheme, theme } = useContext(ThemeContext);
+  const { searchRef, setFocused, focused } = useContext(SearchContext);
   const [searchValue, setSearchValue] = useState("");
   const navigate = useNavigate();
 
@@ -15,49 +19,49 @@ const Header = (props) => {
     keysPressed[event.key] = true;
     if (event.key === "/") {
       setTimeout(() => {
-        props.searchRef.current.focus();
+        searchRef.current.focus();
       }, 500);
-      props.setFocused(true);
+      setFocused(true);
     }
     document.removeEventListener("keydown", keylistener);
   });
 
   function handleFocus() {
-    props.setFocused(true);
+    setFocused(true);
     document.removeEventListener("keyup", keylistener);
     setTimeout(() => {
-      props.searchRef.current.focus();
+      searchRef.current.focus();
     }, 500);
   }
 
   function handleBlur() {
-    props.setFocused(false);
+    setFocused(false);
   }
 
   async function handleSubmit(event) {
     event.preventDefault(); // Prevents default form submission behavior
-    navigate(`/results/?search_query=${searchValue}`); // Redirect to new page
+    if (searchValue) {
+      var searchQuery = searchValue.split(" ").join("+");
+      navigate(`/results/?search_query=${searchQuery}`); // Redirect to new page
+      setFocused(false);
+      document.activeElement.blur();
+    }
   }
   return (
     <div
-      className={` font-display w-full shadow-sm shadow-slate-600 h-14 bg-white dark:bg-gray-800 fixed z-10  top-0 flex justify-center items-center px-5 opacity-95 ${
-        props.focused ? "justify-center sm:justify-between" : "justify-between"
+      className={` font-display w-full shadow-sm shadow-slate-600 h-14 bg-white dark:bg-gray-800 fixed z-10  top-0 flex justify-center items-center px-5 opacity-95   ${
+        focused ? "justify-center sm:justify-between" : "justify-between"
       }`}
     >
       <Link
         to="/"
         className={`${
-          props.focused || searchValue.length > 0 ? "hidden sm:flex" : "flex"
+          focused || searchValue.length > 0 ? "hidden sm:flex" : "flex"
         }`}
       >
         <div className="h-full flex items-center gap-1 opacity-100 ">
           <div className=" flex items-center rounded-full w-8 h-8">
-            <img
-              src="./youtube-icon.ico "
-              alt=""
-              className="w-full p-0"
-              draggable="false"
-            />
+            <img src={logo} alt="" className="w-full p-0" draggable="false" />
           </div>
           <h1 className="text-3xl font-bold dark:text-white text-black">
             Youtube
@@ -66,37 +70,42 @@ const Header = (props) => {
       </Link>
       <div
         className={`${
-          props.focused || searchValue.length > 0
+          focused || searchValue.length > 0
             ? "w-full sm:w-auto sm:flex"
             : "flex"
         }`}
       >
         <form
-          className="flex items-center  sm:justify-center  mx-auto  dark:bg-gray-700   rounded-lg opacity-100 w-full border-none md:border-solid  border-black border-[1px] dark:border-none"
+          className={`flex items-center  sm:justify-center  mx-auto  dark:bg-gray-700   rounded-lg opacity-100 w-full border-none md:border-solid  sm:bg-slate-300 border-black border-[1px] dark:border-none font-bold ${
+            focused || searchValue.length > 0 ? "bg-slate-300 " : ""
+          }`}
           onSubmit={handleSubmit}
         >
           <label htmlFor="voice-search" className="sr-only">
             Search
           </label>
-          <div className="flex rounded-lg pr-3">
+          <div className="flex rounded-lg pr-3 w-full">
             <input
               type="text"
               id="voice-search"
-              className={` dark:bg-gray-700 border  text-gray-900 text-sm rounded-lg  border-none  focus:outline-none block  p-2    dark:placeholder-gray-400 dark:text-white transition-all duration-1000 ${
-                props.focused || searchValue.length > 0
-                  ? "w-80 sm:w-80 flex"
+              className={`  bg-transparent border  text-gray-900 text-sm rounded-lg  border-none focus:outline-none block  p-2    dark:placeholder-gray-400 dark:text-white transition-all duration-1000 ${
+                focused || searchValue.length > 0
+                  ? "w-[85%] md:w-80 flex"
                   : " hidden sm:flex  sm:w-64 "
               }  sm:focus:w-80 `}
               placeholder="Type '/' | Search...."
-              ref={props.searchRef}
+              ref={searchRef}
               onFocus={handleFocus}
+              // onKeyDownCapture={}
               onBlur={handleBlur}
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
             />
             <button
               type="button"
-              className=" inset-y-0 end-0  sm:flex hidden  items-center pe-3 max-h-9 "
+              className={`inset-y-0 end-0  sm:flex  items-center pe-3 max-h-9 ${
+                focused ? "" : "hidden sm:block"
+              } `}
             >
               <svg
                 className="w-4 h-4 text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white "
@@ -116,7 +125,7 @@ const Header = (props) => {
             </button>
             <button
               type="button"
-              className=" inline-flex items-center  text-sm font-medium text-gray-700 dark:text-gray-400 dark:hover:text-white"
+              className="inline-flex items-center  text-sm font-medium text-gray-700 dark:text-gray-400 dark:hover:text-white"
               onClick={handleFocus}
             >
               <svg
@@ -140,12 +149,12 @@ const Header = (props) => {
       </div>
       <div
         className={`flex justify-around items-center w-48 ${
-          props.focused || searchValue.length > 0 ? "hidden sm:flex" : "flex"
+          focused || searchValue.length > 0 ? "hidden sm:flex" : "flex"
         }`}
       >
-        <span className="fill-black dark:text-white">
+        {/* <span className="fill-black dark:text-white">
           <ImVideoCamera size={23} />
-        </span>
+        </span> */}
 
         <span className="fill-black dark:text-white">
           <IoNotificationsCircleSharp size={25} width={9} />
@@ -155,9 +164,9 @@ const Header = (props) => {
         </span>
         <span
           className="fill-black dark:text-white"
-          onClick={props.toggleTheme}
+          onClick={handleToggleTheme}
         >
-          <MdOutlineWbSunny size={25} />
+          {theme === "dark" ? <BsMoonStarsFill /> : <IoSunnySharp size={20} />}
         </span>
       </div>
     </div>
