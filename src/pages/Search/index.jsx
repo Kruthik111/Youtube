@@ -65,10 +65,14 @@ const Search = () => {
       <div className="flex flex-col items-center gap-4 w-screen  scroll-smooth pt-5 md:pt-14">
         {data &&
           data.map(
-            // (v) =>
             (v) => (
               <>
-                {v.id.videoId && <VideoCard video={v} />}
+                {v.id.videoId && (
+                  <VideoCard
+                    video={v}
+                    thumbnail={v.snippet.thumbnails.high.url}
+                  />
+                )}
                 {v.id.channelId && <ChannelCard channelDetails={v} />}
                 {v.id.playlistId && <PlaylistCard video={v} />}
               </>

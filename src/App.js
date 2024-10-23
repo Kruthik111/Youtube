@@ -10,7 +10,9 @@ import Video from "./pages/Video";
 import useLocalStroage from "./utils/useLocalStorage";
 import ErrorPage from "./pages/ErrorPage";
 import ChannelCard from "./components/ChannelCard";
-import ChannelDetail from "./pages/ChannelDetail";
+import ChannelDetails from "./pages/ChannelDetails";
+import VideoSection from "./pages/ChannelDetails/VideoSection";
+import SubscribeButton from "./components/Subscribe";
 
 export const ThemeContext = React.createContext();
 export const SearchContext = React.createContext();
@@ -49,8 +51,8 @@ const App = () => {
             {/* <Header /> */}
             <Navbar />
             <Routes>
-              {/* <Route path="/" element={<Home />} /> */}
-              <Route path="/" element={<ChannelDetail />} />
+              <Route path="/" element={<Home />} />
+              {/* <Route path="/" element={<ChannelDetails />} /> */}
               {/* <Route path="/" element={<ErrorPage />} /> */}
               <Route path="/Shorts" element={<Shorts />} />
               {/* <Route path="/Home" element={<Home />} /> */}
@@ -58,9 +60,15 @@ const App = () => {
               <Route path="/results" element={<Search />} />
               <Route path="/video" element={<Video />} />
               <Route
-                path="/ChannelDetails/:channelId"
-                element={<ChannelDetail />}
-              />
+                path="/ChannelDetails/:channelId/"
+                element={<ChannelDetails />}
+              >
+                <Route index element={<VideoSection />} />
+                <Route path="featured" element={<VideoSection />} />
+                <Route path="Shorts" element={<Shorts />} />
+                <Route path="Videos" element={<VideoSection />} />
+                <Route path="Playlists" element={<Search />} />
+              </Route>
             </Routes>
           </BrowserRouter>
         </div>

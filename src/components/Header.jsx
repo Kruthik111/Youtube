@@ -5,7 +5,6 @@ import { FaUserPlus } from "react-icons/fa";
 import { ImVideoCamera } from "react-icons/im";
 import { BsMoonStarsFill } from "react-icons/bs";
 import logo from "../assets/youtube-icon.ico";
-// import { ThemeContext } from "../App";
 import { SearchContext, ThemeContext } from "../App";
 
 const Header = () => {
@@ -29,9 +28,6 @@ const Header = () => {
   function handleFocus() {
     setFocused(true);
     document.removeEventListener("keyup", keylistener);
-    setTimeout(() => {
-      searchRef.current.focus();
-    }, 500);
   }
 
   function handleBlur() {

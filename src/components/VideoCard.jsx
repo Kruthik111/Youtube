@@ -2,7 +2,45 @@ import { HiOutlineDotsVertical } from "react-icons/hi";
 import useFetch from "../utils/useFetch";
 import { Link } from "react-router-dom";
 
-const VideoCard = ({ video }) => {
+const VideoCard = ({ video, thumbnail }) => {
+  /*
+  var video = {
+    kind: "youtube#searchResult",
+    etag: "el6Q_LPa2uetZ-PZlnK2tpYixtw",
+    id: {
+      kind: "youtube#video",
+      videoId: "QTlSWa_8NAU",
+    },
+    snippet: {
+      publishedAt: "2024-10-22T05:41:00Z",
+      channelId: "UCLr1s9zKvByfxUTGk0egUug",
+      title: "GIRLS LOVE BIKERS🚀 ಏನ್ ಸೈಕಾಗಿ ಓಡುಸ್ತರೆ ಗುರು🤯#reise",
+      description:
+        "MEETING A GIRL RACER !!! Join this channel to SUPPORT US: ...",
+      thumbnails: {
+        default: {
+          url: "https://i.ytimg.com/vi/QTlSWa_8NAU/default.jpg",
+          width: 120,
+          height: 90,
+        },
+        medium: {
+          url: "https://i.ytimg.com/vi/QTlSWa_8NAU/mqdefault.jpg",
+          width: 320,
+          height: 180,
+        },
+        high: {
+          url: "https://i.ytimg.com/vi/QTlSWa_8NAU/hqdefault.jpg",
+          width: 480,
+          height: 360,
+        },
+      },
+      channelTitle: "ಟಿಪಿಕಲ್ ಕನ್ನಡಿಗ",
+      liveBroadcastContent: "none",
+      publishTime: "2024-10-22T05:41:00Z",
+    },
+  };
+  */
+  // console.log(video);
   // const { data, error, pending } = useFetch(
   //   `https://www.googleapis.com/youtube/v3/channels?part=snippet&id=${props.video.snippet.channelId}&key=${process.env.REACT_APP_YOUTUBE_APIKEY}`,
   //   {}
@@ -19,7 +57,8 @@ const VideoCard = ({ video }) => {
       <div className="flex text-black dark:text-gray-400 w-full gap-4 sm:max-w-[80vw] tracking-tight min-w-[80vw] flex-col sm:flex-row ">
         <div className=" min-w-48  lg:min-w-[30rem] overflow-hidden rounded-lg ">
           <img
-            src={video.snippet.thumbnails.high.url}
+            src={thumbnail}
+            // src="https://i.ytimg.com/vi/QTlSWa_8NAU/hqdefault.jpg"
             draggable="false"
             className="rounded-lg -my-12 w-fit"
             alt=""
