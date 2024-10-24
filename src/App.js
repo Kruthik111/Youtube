@@ -13,6 +13,7 @@ import ChannelCard from "./components/ChannelCard";
 import ChannelDetails from "./pages/ChannelDetails";
 import VideoSection from "./pages/ChannelDetails/VideoSection";
 import SubscribeButton from "./components/Subscribe";
+import PlaylistDetails from "./pages/PlaylistDetails";
 
 export const ThemeContext = React.createContext();
 export const SearchContext = React.createContext();
@@ -51,7 +52,8 @@ const App = () => {
             {/* <Header /> */}
             <Navbar />
             <Routes>
-              <Route path="/" element={<Home />} />
+              {/* <Route path="/" element={<Home />} /> */}
+              <Route path="/" element={<PlaylistDetails />} />
               {/* <Route path="/" element={<ChannelDetails />} /> */}
               {/* <Route path="/" element={<ErrorPage />} /> */}
               <Route path="/Shorts" element={<Shorts />} />
